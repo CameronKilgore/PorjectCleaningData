@@ -7,7 +7,10 @@ activity_labels<-read.table("./UCI HAR Dataset/activity_labels.txt",
 'Clean up the activity names'
 activity_labels[,2]<-str_to_title(gsub("_", " ",activity_labels[,2]))
 
-'section should be either "Test" or "Train"'
+'section should be either "Test" or "Train"
+This cleans the train and test datasets to only
+include the means and standard devs, cleans up the names, and
+combines the activity names and subjects.'
 initial_clean<-function(section){
   if(section != "Test" & section != "Train"){
     print("Invalid section")
@@ -40,11 +43,15 @@ initial_clean<-function(section){
   return(trimX)
 }
 
+'calls function for test and clean dataset'
 test_set<-initial_clean("Test")
 train_set<-initial_clean("Train")
+'brings the train set onto the test set'
 tidy_set<-rbind(test_set,train_set)
+'Finds mean based on subject and activity of each variable'
 means<-aggregate(tidy_set[,3:ncol(tidy_set)],
                  list(tidy_set$Subject,tidy_set$activities), FUN=mean)
 
+'exports both datasets'
 write.table(tidy_set,file="./tidy_dataset.txt")
 write.table(means,file="./means.txt")
