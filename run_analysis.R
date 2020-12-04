@@ -55,5 +55,5 @@ means<-aggregate(tidy_set[,3:ncol(tidy_set)],
 names(means)<-c("Subject","Activity",names(means)[3:length(means)])
 
 'exports both datasets'
-write.csv(tidy_set,file="./tidy_dataset.csv")
-write.csv(means,file="./means.csv")
+write.table(tidy_set,file="./tidy_dataset.txt")
+write.table(means,file="./means.txt")
