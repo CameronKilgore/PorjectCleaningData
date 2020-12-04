@@ -52,6 +52,8 @@ tidy_set<-rbind(test_set,train_set)
 means<-aggregate(tidy_set[,3:ncol(tidy_set)],
                  list(tidy_set$Subject,tidy_set$activities), FUN=mean)
 
+names(means)<-c("Subject","Activity",names(means)[3:length(means)])
+
 'exports both datasets'
-write.table(tidy_set,file="./tidy_dataset.txt")
-write.table(means,file="./means.txt")
+write.csv(tidy_set,file="./tidy_dataset.csv")
+write.csv(means,file="./means.csv")
